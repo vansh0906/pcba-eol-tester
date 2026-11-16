@@ -1,0 +1,24 @@
+# Three end-of-line test stations. "as_found" is the state the qualification study started from;
+# "released" is after the fixes the study led to (see docs/FINDINGS.md).
+stations:
+  ST1:
+    as_found: {dmm_gain_ppm: 20,   dmm_offset_mv: 0.05,  isrc_gain_ppm: 150,  ohm_offset: 0.08}
+    released: {dmm_gain_ppm: 20,   dmm_offset_mv: 0.05,  isrc_gain_ppm: 150,  ohm_offset: 0.08}
+  ST2:
+    as_found: {dmm_gain_ppm: 2500, dmm_offset_mv: -0.10, isrc_gain_ppm: -200, ohm_offset: 0.12}   # DMM past its cal date
+    released: {dmm_gain_ppm: 35,   dmm_offset_mv: -0.10, isrc_gain_ppm: -200, ohm_offset: 0.12}
+  ST3:
+    as_found: {dmm_gain_ppm: -30,  dmm_offset_mv: 0.08,  isrc_gain_ppm: 100,  ohm_offset: 0.05}
+    released: {dmm_gain_ppm: -30,  dmm_offset_mv: 0.08,  isrc_gain_ppm: 100,  ohm_offset: 0.05}
+
+# How the 12 V ripple is probed.
+ripple_setup:
+  as_found: {pickup_pp_mv: 6.0, sigma_mv: 1.2, what: "10x probe with a 15 cm ground lead, full bandwidth, single shot"}
+  released: {pickup_pp_mv: 1.0, sigma_mv: 0.15, what: "spring ground tip on TP_12V/GND pad pair, 20 MHz bandwidth limit, 16 averages"}
+
+# Measurement method the tester uses (current-sense gain test and temperature check).
+method:
+  as_found: {i_test_a: 5.0,  isense_samples: 16, temp_reads: 1, i_measured: false}   # divide by the set current
+  released: {i_test_a: 10.0, isense_samples: 64, temp_reads: 8, i_measured: true}    # divide by the current read on the fixture's reference shunt
+
+fixture_temp_c: [22.0, 28.0]   # fixture air temperature range on the line

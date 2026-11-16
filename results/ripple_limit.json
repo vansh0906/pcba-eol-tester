@@ -1,0 +1,42 @@
+{
+ "good_mv": {
+  "mean": 8.823759883998719,
+  "max": 11.627698830660218
+ },
+ "missing_cap_mv": {
+  "mean": 17.646697474682977,
+  "min": 12.41984596938396
+ },
+ "limits": {
+  "15.0": {
+   "false_fail_pct": 0.0,
+   "escape_pct": 3.33,
+   "cpk": 2.43
+  },
+  "14.0": {
+   "false_fail_pct": 0.0,
+   "escape_pct": 1.67,
+   "cpk": 2.03
+  },
+  "13.0": {
+   "false_fail_pct": 0.0,
+   "escape_pct": 0.67,
+   "cpk": 1.64
+  },
+  "12.5": {
+   "false_fail_pct": 0.0,
+   "escape_pct": 0.33,
+   "cpk": 1.44
+  },
+  "12.0": {
+   "false_fail_pct": 0.0,
+   "escape_pct": 0.0,
+   "cpk": 1.25
+  },
+  "11.0": {
+   "false_fail_pct": 1.33,
+   "escape_pct": 0.0,
+   "cpk": 0.85
+  }
+ }
+}

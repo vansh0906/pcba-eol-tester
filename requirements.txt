@@ -1,0 +1,5 @@
+# Python 3.10+. Install: python3 -m pip install -r requirements.txt
+numpy>=1.24
+pyyaml>=6.0
+matplotlib>=3.7
+pytest>=7.4

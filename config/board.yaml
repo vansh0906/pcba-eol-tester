@@ -1,0 +1,61 @@
+# JDB: a modeled robot-joint driver board (48 V bus, 3-phase bridge, current sense, CAN).
+# Values are typical for this class of board; every part has a tolerance and is drawn at random per unit.
+#
+#   48 V ──► buck (12 V, gate drive) ──► LDO (5 V, sensors) ──► LDO (3.3 V, MCU)
+#   48 V ──► 3-phase MOSFET bridge ──► phase A ──► 2 mΩ shunt ──► current-sense amp (gain 20) ──► MCU ADC
+#   48 V ──► divider ──► MCU ADC (bus voltage)        NTC + 10 kΩ pull-up ──► MCU ADC (board temperature)
+#   MCU ──► CAN transceiver ──► CANH/CANL (120 Ω termination on board)      MCU ──► UART (test port)
+
+parts:                       # nominal, relative tolerance (1 sigma = tol / 3)
+  buck_vref:      [0.800, 0.010]
+  buck_rtop:      [140.0e3, 0.01]
+  buck_rbot:      [10.0e3, 0.01]
+  buck_l:         [22.0e-6, 0.20]
+  buck_c:         [44.0e-6, 0.20]     # 2 x 22 uF ceramic
+  buck_esr:       [0.005, 0.30]
+  buck_fsw:       [500.0e3, 0.05]
+  buck_droop:     [0.010, 0.20]       # ohm, load regulation
+  ldo5_vref:      [1.200, 0.015]
+  ldo5_r1:        [31.6e3, 0.01]
+  ldo5_r2:        [10.0e3, 0.01]
+  ldo3_vref:      [1.200, 0.015]
+  ldo3_r1:        [17.4e3, 0.01]
+  ldo3_r2:        [10.0e3, 0.01]
+  shunt:          [0.002, 0.01]
+  csa_gain:       [20.0, 0.005]
+  csa_offset_div: [0.500, 0.002]      # ratio of 3.3 V used as the amplifier's zero-current offset
+  csa_vos:        [0.0, 0.0]          # amplifier input offset, set below (absolute)
+  vbus_r1:        [196.0e3, 0.01]
+  vbus_r2:        [10.0e3, 0.01]
+  ntc_r25:        [10.0e3, 0.01]
+  ntc_beta:       [3950.0, 0.01]
+  ntc_pullup:     [10.0e3, 0.01]
+  can_term:       [120.0, 0.01]
+  iq_board:       [0.045, 0.10]       # A at 48 V, idle board
+  fet_rds:        [0.006, 0.15]       # ohm, low-side FET on-resistance
+
+csa_vos_sigma: 0.00015                # V, amplifier input offset (1 sigma)
+
+# Revisions differ only in what the fixture can probe.
+revisions:
+  A:
+    test_points: [TP_48V, TP_5V, TP_3V3, TP_PHA, TP_CANH, TP_CANL]
+  B:                                  # DFT change requested from the rev A coverage study
+    test_points: [TP_48V, TP_12V, TP_5V, TP_3V3, TP_PHA, TP_CANH, TP_CANL]
+
+# Assembly defects: what goes wrong on the line, with an assumed rate (defects per million units, DPMU).
+defects:
+  short_3v3_gnd:       {rate: 600,  what: "solder bridge from the 3.3 V rail to ground"}
+  buck_fb_wrong:       {rate: 300,  what: "buck feedback resistor placed as 12.1 kOhm instead of 10 kOhm (wrong reel)"}
+  buck_cout_missing:   {rate: 500,  what: "one of the two buck output capacitors missing"}
+  ldo5_r_wrong:        {rate: 300,  what: "5 V LDO feedback resistor 12.1 kOhm instead of 10 kOhm"}
+  shunt_open:          {rate: 400,  what: "phase A shunt not soldered (open)"}
+  csa_gain_wrong:      {rate: 200,  what: "current-sense amplifier gain resistor swapped (gain 10 instead of 20)"}
+  csa_offset_wrong:    {rate: 200,  what: "offset divider resistor wrong value (offset 1.32 V instead of 1.65 V)"}
+  hs_gate_open:        {rate: 500,  what: "phase A high-side gate resistor open"}
+  ls_fet_short:        {rate: 250,  what: "phase A low-side MOSFET shorted drain to source"}
+  ntc_wrong_part:      {rate: 300,  what: "NTC with beta 3435 placed instead of 3950 (same 10 kOhm at 25 C)"}
+  can_term_missing:    {rate: 400,  what: "120 Ohm CAN termination resistor missing"}
+  can_xcvr_open:       {rate: 500,  what: "CAN transceiver TXD pin not soldered"}
+  vbus_div_wrong:      {rate: 200,  what: "bus-voltage divider resistor 182 kOhm instead of 196 kOhm"}
+  mcu_xtal_missing:    {rate: 350,  what: "MCU crystal missing: MCU does not boot"}

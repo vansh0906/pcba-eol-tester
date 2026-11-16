@@ -1,0 +1,63 @@
+{
+ "A": {
+  "test_points": [
+   "TP_48V",
+   "TP_5V",
+   "TP_3V3",
+   "TP_PHA",
+   "TP_CANH",
+   "TP_CANL"
+  ],
+  "detection": {
+   "short_3v3_gnd": 1.0,
+   "buck_fb_wrong": 0.0,
+   "buck_cout_missing": 0.0,
+   "ldo5_r_wrong": 1.0,
+   "shunt_open": 1.0,
+   "csa_gain_wrong": 1.0,
+   "csa_offset_wrong": 1.0,
+   "hs_gate_open": 1.0,
+   "ls_fet_short": 1.0,
+   "ntc_wrong_part": 0.0,
+   "can_term_missing": 1.0,
+   "can_xcvr_open": 1.0,
+   "vbus_div_wrong": 1.0,
+   "mcu_xtal_missing": 1.0
+  },
+  "defects_covered": 11,
+  "defects_total": 14,
+  "escape_dpmu": 1100.0,
+  "weighted_coverage_pct": 78.0
+ },
+ "B": {
+  "test_points": [
+   "TP_48V",
+   "TP_12V",
+   "TP_5V",
+   "TP_3V3",
+   "TP_PHA",
+   "TP_CANH",
+   "TP_CANL"
+  ],
+  "detection": {
+   "short_3v3_gnd": 1.0,
+   "buck_fb_wrong": 1.0,
+   "buck_cout_missing": 1.0,
+   "ldo5_r_wrong": 1.0,
+   "shunt_open": 1.0,
+   "csa_gain_wrong": 1.0,
+   "csa_offset_wrong": 1.0,
+   "hs_gate_open": 1.0,
+   "ls_fet_short": 1.0,
+   "ntc_wrong_part": 0.0,
+   "can_term_missing": 1.0,
+   "can_xcvr_open": 1.0,
+   "vbus_div_wrong": 1.0,
+   "mcu_xtal_missing": 1.0
+  },
+  "defects_covered": 13,
+  "defects_total": 14,
+  "escape_dpmu": 300.0,
+  "weighted_coverage_pct": 94.0
+ }
+}

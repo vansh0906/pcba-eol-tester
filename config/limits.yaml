@@ -1,0 +1,22 @@
+# End-of-line test plan for the JDB. "draft" limits came from the electrical spec (v0.9);
+# "released" limits are what the limit study (docs/FINDINGS.md, L-01..L-03) signed off for the pilot.
+# needs: test points the fixture must reach (a test is skipped on a revision without them).
+# stop: a failure here ends the test (safety, or nothing after it can run).
+tests:
+  - {id: T01, name: can_term_ohm,     unit: ohm, needs: [TP_CANH, TP_CANL], time_s: 0.6, draft: [108.0, 132.0], released: [108.0, 132.0]}
+  - {id: T02, name: idle_current_a,   unit: A,   needs: [TP_48V], stop: true, time_s: 1.2, draft: [0.030, 0.070], released: [0.030, 0.070]}
+  - {id: T03, name: rail_12v,         unit: V,   needs: [TP_12V], time_s: 0.3, draft: [11.64, 12.36], released: [11.64, 12.36]}
+  - {id: T04, name: ripple_12v_mv,    unit: mV,  needs: [TP_12V], time_s: 1.5, draft: [0.0, 15.0], released: [0.0, 13.0]}
+  - {id: T05, name: rail_5v,          unit: V,   needs: [TP_5V],  time_s: 0.3, draft: [4.85, 5.15], released: [4.85, 5.15]}
+  - {id: T06, name: rail_3v3,         unit: V,   needs: [TP_3V3], time_s: 0.3, draft: [3.25, 3.35], released: [3.20, 3.40]}
+  - {id: T07, name: fw_boot,          unit: "",  needs: [], stop: true, time_s: 3.0, expect: "jdb-fw 1.5.0"}
+  # T08 calibrates: the tester measures the bus at TP_48V, writes gain = DMM / firmware reading to flash.
+  # Its limits are a sanity window (a wrong divider resistor needs a gain far from 1.0).
+  - {id: T08, name: vbus_cal_gain,    unit: "",  needs: [TP_48V], time_s: 0.5, draft: [0.97, 1.03], released: [0.97, 1.03]}
+  - {id: T09, name: vbus_err_v,       unit: V,   needs: [TP_48V], time_s: 0.4, draft: [-0.50, 0.50], released: [-0.50, 0.50]}
+  - {id: T10, name: isense_offset_v,  unit: V,   needs: [], time_s: 0.3, draft: [1.60, 1.70], released: [1.60, 1.70]}
+  - {id: T11, name: isense_gain_vpa,  unit: V/A, needs: [], time_s: 0.8, draft: [0.0394, 0.0406], released: [0.0392, 0.0408]}
+  - {id: T12, name: ntc_err_c,        unit: C,   needs: [], time_s: 0.3, draft: [-2.0, 2.0], released: [-2.0, 2.0]}
+  - {id: T13, name: pha_avg_v,        unit: V,   needs: [TP_PHA], time_s: 0.6, draft: [22.8, 25.2], released: [22.8, 25.2]}
+  - {id: T14, name: pwm_current_a,    unit: A,   needs: [TP_48V], time_s: 0.2, draft: [0.030, 0.090], released: [0.030, 0.090]}
+  - {id: T15, name: can_echo,         unit: "",  needs: [], time_s: 0.5, expect: "ok"}

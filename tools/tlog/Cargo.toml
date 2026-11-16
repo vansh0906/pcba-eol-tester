@@ -1,0 +1,8 @@
+[package]
+name = "tlog"
+version = "0.1.0"
+edition = "2021"
+description = "Reads an end-of-line tester log (CSV) and reports yield, first-fail Pareto, per-station yield and Cpk"
+license = "MIT"
+
+[dependencies]
